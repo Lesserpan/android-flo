@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_allofcountry_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <ImageView
+                android:id="@+id/song_Lalac_iv2"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_album_exp2" />
+
+
+
+            <ImageView
+                android:id="@+id/song_sinho_iv"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toEndOf="@+id/song_Lalac_iv2"
+                app:layout_constraintBottom_toBottomOf="@+id/song_Lalac_iv2"
+                app:srcCompat="@drawable/sinho" />
+
+            <ImageView
+                android:id="@+id/song_dundun_iv"
+                app:srcCompat="@drawable/dundun"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@+id/song_sinho_iv"
+                app:layout_constraintBottom_toBottomOf="@+id/song_Lalac_iv2"/>
+
+            <TextView
+                android:id="@+id/album_lalactitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="라일락"
+                app:layout_constraintTop_toBottomOf="@+id/song_Lalac_iv2"
+                app:layout_constraintStart_toStartOf="@+id/song_Lalac_iv2"
+                />
+
+            <TextView
+                android:id="@+id/album_iusinger_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아이유(IU)"
+                app:layout_constraintStart_toStartOf="@id/song_Lalac_iv2"
+                app:layout_constraintTop_toBottomOf="@+id/album_lalactitle_tv" />
+
+            <TextView
+                android:id="@+id/album_sinhotitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신호등"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/song_sinho_iv"
+                app:layout_constraintStart_toStartOf="@+id/song_sinho_iv"/>
+            <TextView
+                android:id="@+id/album_sinhosinger_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이무진"
+                app:layout_constraintTop_toBottomOf="@id/album_sinhotitle_tv"
+                app:layout_constraintStart_toStartOf="@+id/album_sinhotitle_tv"/>
+
+            <TextView
+                android:id="@+id/album_dunduntitle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dun Dun Dance"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/song_dundun_iv"
+                app:layout_constraintStart_toStartOf="@+id/song_dundun_iv"/>
+
+            <TextView
+                android:id="@+id/album_dundunsinger_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오마이걸(OH MY GIRL)"
+                app:layout_constraintTop_toBottomOf="@+id/album_dunduntitle_tv"
+                app:layout_constraintStart_toStartOf="@id/album_dunduntitle_tv"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
