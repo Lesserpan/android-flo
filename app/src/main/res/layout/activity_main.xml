@@ -22,8 +22,28 @@
         app:layout_constraintBottom_toTopOf="@id/main_bnv"
         android:paddingVertical="5dp"
         android:background="#F9F9F9">
-
         <LinearLayout
+            android:id="@+id/main_forseebar_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/main_song_ly"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        <SeekBar
+            android:id="@+id/main_progress_sb"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:paddingBottom="7dp"
+            android:background="@null"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progressBackgroundTint="#CC2626"
+            android:progressTint="#2155B1"
+            android:thumb="@color/transparent"
+            android:max="100000"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/main_song_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

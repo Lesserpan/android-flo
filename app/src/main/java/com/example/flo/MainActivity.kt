@@ -3,6 +3,8 @@ package com.example.flo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
@@ -15,14 +17,19 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_FLO)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initBottomNavigation()
 
         val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),0,60,false)
+
+
+
 
         binding.mainPlayerCl.setOnClickListener{
             val intent = Intent(this,SongActivity::class.java)
@@ -34,6 +41,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
+
+
+
 
 
 
@@ -74,6 +86,10 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+
+
+
+
     }
 
     /*private lateinit var iv1:ImageView

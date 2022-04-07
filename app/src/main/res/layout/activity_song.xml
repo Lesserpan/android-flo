@@ -183,6 +183,8 @@
             android:text="그 사이 3초 그 짧은 시간"
             android:textSize="16sp"
             android:layout_marginTop="5dp" />
+
+
         </LinearLayout>
 
 
@@ -297,6 +299,16 @@
                     android:layout_weight="1"
                     app:srcCompat="@drawable/btn_playlist_repeat_on"
                     android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/song_onesongrepeat_active_iv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/btn_playlist_repeat_on1"
+                    android:visibility="gone"/>
+
+
 
 
                 <ImageView

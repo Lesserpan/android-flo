@@ -29,10 +29,13 @@ class SongActivity : AppCompatActivity() {
             setPlayerStatus(false)
         }
         binding.songRepeatInactiveIv.setOnClickListener{
-            setRepeaterStatus(true)
+            setRepeaterStatus(0)
         }
         binding.songRepeatActiveIv.setOnClickListener{
-            setRepeaterStatus(false)
+            setRepeaterStatus(1)
+        }
+        binding.songOnesongrepeatActiveIv.setOnClickListener{
+            setRepeaterStatus(2)
         }
         binding.songRandomInactiveIv.setOnClickListener{
             setRandomerStatus(true)
@@ -74,6 +77,7 @@ class SongActivity : AppCompatActivity() {
         startTimer()
     }
 
+
     private fun setPlayer(song: Song){
         binding.songMusicTitleTv.text = intent.getStringExtra("title")!!
         binding.songSingerNameTv.text = intent.getStringExtra("singer")!!
@@ -82,7 +86,6 @@ class SongActivity : AppCompatActivity() {
         binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
 
         setPlayerStatus(song.isPlaying)
-
     }
 
     private fun startTimer(){
@@ -103,14 +106,23 @@ class SongActivity : AppCompatActivity() {
         }
 
     }
-    private fun setRepeaterStatus(isRepeating : Boolean){
-        if(isRepeating){
+    private fun setRepeaterStatus(isRepeating : Int){
+        if(isRepeating==0){
             binding.songRepeatActiveIv.visibility= View.VISIBLE
             binding.songRepeatInactiveIv.visibility=View.GONE
+            binding.songOnesongrepeatActiveIv.visibility=View.GONE
+        }
+        else if(isRepeating==1){
+            binding.songRepeatActiveIv.visibility= View.GONE
+            binding.songRepeatInactiveIv.visibility=View.GONE
+            binding.songOnesongrepeatActiveIv.visibility=View.VISIBLE
+
         }
         else{
             binding.songRepeatActiveIv.visibility= View.GONE
             binding.songRepeatInactiveIv.visibility=View.VISIBLE
+            binding.songOnesongrepeatActiveIv.visibility=View.GONE
+
         }
     }
     private fun setLikeStatus(isLiking : Boolean){
@@ -143,31 +155,37 @@ class SongActivity : AppCompatActivity() {
             binding.songRandomInactiveIv.visibility=View.VISIBLE
         }
     }
-    inner class Timer(private val playTime: Int,var isPlaying: Boolean=true): Thread(){
+    inner class Timer(private val playTime: Int, var isPlaying: Boolean=true): Thread(){
 
         private var second : Int = 0
         private var mills: Float= 0f
 
         override fun run(){
             super.run()
-            while (true){
-                if(second >= playTime){
-                    break
-                }
-                if (isPlaying){
-                    sleep(50)
-                    mills +=50
+            try{
+                while (true){
+                    if(second >= playTime){
+                        break
+                    }
+                    if (isPlaying){
+                        Thread.sleep(50)
+                        mills +=50
 
-                    runOnUiThread {
-                        binding.songProgressSb.progress = ((mills/playTime)*100).toInt()
-                    }
-                    if(mills%1000==0f){
                         runOnUiThread {
-                            binding.songStartTimeTv.text = String.format("%02d:%02d",second/60, second%60)
+                            binding.songProgressSb.progress = ((mills/playTime)*100).toInt()
                         }
-                        second++
+                        if(mills%1000==0f){
+                            runOnUiThread {
+                                binding.songStartTimeTv.text = String.format("%02d:%02d",second/60, second%60)
+                            }
+                            second++
+                        }
                     }
                 }
+
+            }catch (e: InterruptedException){
+                Log.d("song","쓰레드가 죽었습니다.${e.message}")
+
             }
         }
 
