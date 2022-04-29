@@ -1,15 +1,22 @@
 package com.example.flo
 
+import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySongBinding
+import com.google.gson.Gson
 
 class SongActivity : AppCompatActivity() {
     lateinit var binding : ActivitySongBinding
     lateinit var song :Song             //seekbarthread 만드는 곳
+    private var main: Main =Main()
     lateinit var timer: Timer
+    private var mediaPlayer:MediaPlayer?=null
+    private var gson : Gson = Gson()
+    var boolpl : Int = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +27,7 @@ class SongActivity : AppCompatActivity() {
         setPlayer(song)
 
         binding.songBtnDownIb.setOnClickListener{
+
             finish()
         }
         binding.songMiniplayerIv.setOnClickListener{
@@ -58,11 +66,38 @@ class SongActivity : AppCompatActivity() {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+       /* setPlayerStatus(false)*///사용자가 포커스를 잃었을 때 음악이 중지 된다.
+
+        song.second = ((binding.songProgressSb.progress*song.playTime)/100)/1000
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)//이 두줄은 앱이 꺼져도 시간을 기억할 수 있게 해주는 것들//sharedpreferences는 앱 안에서 간단한 것들 기억
+
+        val editor = sharedPreferences.edit() //에디터
+        val songJson = gson.toJson(song)
+        editor.putString("songData", songJson)
+
+        editor.apply()
+
+        binding.songBtnDownIb.setOnClickListener{
+            val intent = Intent(this,MainActivity::class.java)
+
+            intent.putExtra("second", song.second)
+            intent.putExtra("isPlaying", song.isPlaying)
+            startActivity(intent)
+        }
+
+    }
+    /*editor.putString("title",song.title)
+    editor.putString("title",song.singer)*/
+
+
     override fun onDestroy() {
         super.onDestroy()
         timer.interrupt()
+        mediaPlayer?.release()//미디어플레이어가 갖고 있던 리소스 해제
+        mediaPlayer= null //미디어 플레이어 해제
     }
-
     private fun initSong(){                                                         //seekbar thread 만드는 곳
         if(intent.hasExtra("title")&& intent.hasExtra("singer")){
             song=Song(
@@ -70,7 +105,9 @@ class SongActivity : AppCompatActivity() {
                 intent.getStringExtra("singer")!!,
                 intent.getIntExtra("second", 0),
                 intent.getIntExtra("playTime", 0),
-                intent.getBooleanExtra("isPlaying", false)
+                intent.getBooleanExtra("isPlaying", false),
+                intent.getIntExtra("isRepeating",1),
+                intent.getStringExtra("music")!!
 
             )
         }
@@ -84,7 +121,8 @@ class SongActivity : AppCompatActivity() {
         binding.songStartTimeTv.text = String.format("%02d:%02d",song.second/60, song.second%60)
         binding.songEndTimeTv.text = String.format("%02d:%02d",song.playTime/60, song.playTime%60)
         binding.songProgressSb.progress = (song.second * 1000 / song.playTime)
-
+        val music = resources.getIdentifier(song.music, "raw", this.packageName)
+        mediaPlayer = MediaPlayer.create(this,music)//음악 재생
         setPlayerStatus(song.isPlaying)
     }
 
@@ -96,13 +134,20 @@ class SongActivity : AppCompatActivity() {
     private fun setPlayerStatus(isPlaying : Boolean){
         song.isPlaying = isPlaying
         timer.isPlaying = isPlaying
+
         if(isPlaying){
             binding.songMiniplayerIv.visibility= View.GONE
             binding.songPauseIv.visibility=View.VISIBLE
+            boolpl = 1
+            mediaPlayer?.start()//음악 재생
         }
         else{
             binding.songMiniplayerIv.visibility= View.VISIBLE
             binding.songPauseIv.visibility=View.GONE
+            if (mediaPlayer?.isPlaying == true){//음악 재생
+                boolpl = 2
+                mediaPlayer?.pause()
+            }
         }
 
     }

@@ -1,5 +1,6 @@
 package com.example.flo
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,16 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.flo.databinding.FragmentAllofcountryBinding
 import com.example.flo.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
+    private val albumDatas = ArrayList<Album>()
 
 
 
@@ -33,7 +36,41 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
+        //데이터 리스트 생성 더미 데이터
+        albumDatas.apply {
+            add(Album("Lilac","아이유 (IU)", R.drawable.img_album_exp2))
+            add(Album("Butter","방탄소년단 (BTS)", R.drawable.img_album_exp))
+            add(Album("Sinhodeung", "이무진", R.drawable.img_album_exp3))
+            add(Album("Next level", "에스파(aespa)", R.drawable.img_album_exp4))
+            add(Album("Weekend", "태연(Taeyeon)", R.drawable.img_album_exp5))
+            add(Album("사랑인가봐", "멜로망스", R.drawable.img_album_exp6))
+        }
 
+
+
+
+        val albumRVAdapter = AlbumRVAdapter(albumDatas)
+        binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
+        binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        albumRVAdapter.setMyItemClickListener(object: AlbumRVAdapter.MyItemClickListener{
+            override fun onItemClick(album: Album) /*ClickListener 연결하기*/ {
+                (context as MainActivity).supportFragmentManager.beginTransaction()/*ClickListener 연결하기*/
+                    .replace(R.id.main_frm,AlbumFragment()/*ClickListener 연결하기*/ .apply {
+                        arguments = Bundle().apply {
+                            val gson = Gson()
+                            val albumJson = gson.toJson(album)
+                            putString("album",albumJson)
+                        }
+                    })
+                    .commitAllowingStateLoss()//ClickListener 연결하기
+            }
+
+            override fun onRemoveaAlbum(position: Int) {
+                albumRVAdapter.removeItem(position)
+            }
+
+        })//ClickListener 연결하기
 
         val bannerAdapter = BannerVPAdapter(this)
         bannerAdapter.addFragment(BannerFragment(R.drawable.img_home_viewpager_exp))
@@ -105,17 +142,24 @@ class HomeFragment : Fragment() {
         thread.start()
 
 
-        val whereAdapter = WhereVPAdapter(this)
-        binding.homeContentVp.adapter = whereAdapter
-        TabLayoutMediator(binding.homeContentTb, binding.homeContentVp){
-                tab, position ->
-            tab.text = information[position]
-        }.attach()
-
         return binding.root
 
 
     }
+
+    /*override fun onStart() {
+        super.onStart()
+
+        lateinit var homesong :Song
+        fun inithomeSong() {
+            homesong = Song(
+                intent.getIntExtra("second", 0),
+                intent.getBooleanExtra("isPlaying", false)
+            )
+        }
+
+    }*/
+
 
 
 
