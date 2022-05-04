@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 
 class AlbumFragment : Fragment(){
+
     lateinit var binding: FragmentAlbumBinding
     private var gson: Gson = Gson()
 
@@ -26,6 +27,11 @@ class AlbumFragment : Fragment(){
         val albumJson = arguments?.getString("album")
         val album = gson.fromJson(albumJson, Album::class.java)
         setInit(album)
+
+
+        val albumlistJson = arguments?.getString("album")
+        val saved = gson.fromJson(albumlistJson, Saved::class.java)
+        setInit(saved)
 
         binding.albumBackbtnIv.setOnClickListener{
             (context as MainActivity).supportFragmentManager.beginTransaction().replace(R.id.main_frm,HomeFragment()).commitAllowingStateLoss()//fragment이동하게 해주는 코드 문장
@@ -46,5 +52,11 @@ class AlbumFragment : Fragment(){
         binding.albumAlbumIv.setImageResource(album.coverImg!!)
         binding.albumTitleTv.text=album.title.toString()
         binding.albumSingerTv.text=album.title.toString()
+    }
+
+    private fun setInit(saved: Saved){
+        binding.albumAlbumIv.setImageResource(saved.coverImg!!)
+        binding.albumTitleTv.text=saved.title.toString()
+        binding.albumSingerTv.text=saved.title.toString()
     }
 }

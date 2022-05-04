@@ -5,18 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.flo.databinding.ActivityMainBinding.inflate
-import com.example.flo.databinding.ActivitySongBinding.inflate
 import com.example.flo.databinding.FragmentSavedfileBinding
+import com.google.gson.Gson
 
 
 class SavedfileFragment : Fragment() {
 
     lateinit var binding: FragmentSavedfileBinding
-    private var SavedDatas = ArrayList<Saved>()
+    lateinit var songDB: SongDatabase
 
 
     override fun onCreateView(
@@ -27,21 +24,64 @@ class SavedfileFragment : Fragment() {
 
         binding = FragmentSavedfileBinding.inflate(inflater, container,false)
 
-        SavedDatas.apply {
-            add(Saved("Lilac","아이유 (IU)", R.drawable.img_album_exp2))
-            add(Saved("Butter","방탄소년단 (BTS)", R.drawable.img_album_exp))
-            add(Saved("Sinhodeung", "이무진", R.drawable.img_album_exp3))
-            add(Saved("Next level", "에스파(aespa)", R.drawable.img_album_exp4))
-            add(Saved("Weekend", "태연(Taeyeon)", R.drawable.img_album_exp5))
-            add(Saved("사랑인가봐", "멜로망스", R.drawable.img_album_exp6))
-        }
+        songDB = SongDatabase.getInstance(requireContext())!!
 
-        val savedRVAdapter = SavedRVAdapter(SavedDatas)
+        /*val savedRVAdapter = SavedRVAdapter(SavedDatas)
         binding.lockerMusicListRv.adapter = savedRVAdapter
         binding.lockerMusicListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        savedRVAdapter.setMyItemClickListener(object: SavedRVAdapter.MyItemClickListener{
+            override fun onItemClick(save: Saved) {
+                (context as MainActivity).supportFragmentManager.beginTransaction()*//*ClickListener 연결하기*//*
+                    .replace(R.id.main_frm,AlbumFragment().apply {
+                        arguments = Bundle().apply {
+                            val gson = Gson()
+                            val albumJson = gson.toJson(save)
+                            putString("album",albumJson)
+                        }
+                    })
+                    .commitAllowingStateLoss()//ClickListener 연결하기
+
+            }
+
+            override fun onRemoveSave(position: Int) {
+                savedRVAdapter.removeItem(position)
+            }
+        })
+*/
+
+
         return binding.root
     }
+
+    override fun onStart(){
+        super.onStart()
+        initRecyclerview()
+    }
+
+    private fun initRecyclerview(){
+        binding.lockerMusicListRv.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
+
+        val songRVAdapter = SavedRVAdapter()
+
+        songRVAdapter.setMyItemClickListener(object : SavedRVAdapter.MyItemClickListener{
+            override fun onItemClick(save: Saved) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onRemoveSave(songId: Int) {
+               songDB.songDao().updateIsLikeById(false,songId)
+            }
+
+        })
+
+        binding.lockerMusicListRv.adapter = songRVAdapter
+
+        songRVAdapter.addSongs(songDB.songDao().getLikedSongs(true)as ArrayList<Song>)
+
+    }
+
+
 
 
 }
