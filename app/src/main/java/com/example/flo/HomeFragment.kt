@@ -18,14 +18,14 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import kotlin.concurrent.thread
 
+private lateinit var songDB : SongDatabase
+
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     private val albumDatas = ArrayList<Album>()
 
 
-
-    private val information = arrayListOf("종합", "국내", "해외")
     private var currentPage:Int=0
 
     override fun onCreateView(
@@ -37,19 +37,23 @@ class HomeFragment : Fragment() {
 
 
         //데이터 리스트 생성 더미 데이터
-        albumDatas.apply {
+        /*albumDatas.apply {
             add(Album("Lilac","아이유 (IU)", R.drawable.img_album_exp2))
             add(Album("Butter","방탄소년단 (BTS)", R.drawable.img_album_exp))
             add(Album("Sinhodeung", "이무진", R.drawable.img_album_exp3))
             add(Album("Next level", "에스파(aespa)", R.drawable.img_album_exp4))
             add(Album("Weekend", "태연(Taeyeon)", R.drawable.img_album_exp5))
             add(Album("사랑인가봐", "멜로망스", R.drawable.img_album_exp6))
-        }
+        }*/
+        //데이터 리스트 생성 더미 데이터
+        songDB = SongDatabase.getInstance(requireContext())!!
+        albumDatas.addAll(songDB.albumDao().getAlbums())
 
 
 
-
+        // 더미데이터랑 Adapter 연결
         val albumRVAdapter = AlbumRVAdapter(albumDatas)
+        //리사이클러뷰에 어댑터를 연결
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
         binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 

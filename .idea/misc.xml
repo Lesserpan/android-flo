@@ -43,6 +43,29 @@
         <entry key="..\:/Users/leesb/AndroidStudioProjects/FLO AGAIN/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/leesb/AndroidStudioProjects/FLO AGAIN/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3405" />
         <entry key="..\:/Users/leesb/AndroidStudioProjects/FLO AGAIN/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3405" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/activity_signup.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/activity_song.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/activity_splash.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_album.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_banner.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_detail.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_home.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_locker.xml" value="0.25" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_locker_savedalbum.xml" value="0.25" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_look.xml" value="0.33" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_musicfile.xml" value="0.17553191489361702" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_pannelblack.xml" value="0.17553191489361702" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_pannelblue.xml" value="0.17553191489361702" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_pannelmint.xml" value="0.17553191489361702" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_savedfile.xml" value="0.17553191489361702" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_search.xml" value="0.17553191489361702" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_song.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/fragment_video.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/item_album.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/item_albumlist.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/leesb/AndroidStudioProjects/android-flo/app/src/main/res/layout/item_locker_album.xml" value="0.3220108695652174" />
       </map>
     </option>
   </component>

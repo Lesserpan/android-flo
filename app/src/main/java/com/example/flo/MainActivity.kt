@@ -36,9 +36,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         inputDummySongs()
+        inputDummyAlbums()
         initBottomNavigation()
 
-        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),0,60,false,1,"lee_sinhodeung")//음악 재생 시작
+        /*val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString(),0,60,false,1,"lee_sinhodeung")*///음악 재생 시작
 
 
 
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("music",song.music)//음악 재생
         startActivity(intent)*/
 
+        Log.d("MAIN/JWT_TO_SERVER",getJwt().toString())
     }
 
 
@@ -116,6 +118,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun getJwt():String?{
+        val spf = this.getSharedPreferences("auth2",AppCompatActivity.MODE_PRIVATE)
+
+        return spf!!.getString("jwt","")
+    }
 
 
 
@@ -196,7 +203,7 @@ class MainActivity : AppCompatActivity() {
         songDB.songDao().insert(
             Song(
                 "신호등",
-                "아이유",
+                "이무진",
                 0,
                 231,
                 false,
@@ -252,6 +259,53 @@ class MainActivity : AppCompatActivity() {
         val _songs = songDB.songDao().getSongs()
         Log.d("DB data", _songs.toString())
 
+
+    }
+
+    private fun inputDummyAlbums(){
+        val songDB = SongDatabase.getInstance(this)!!
+        val albums = songDB.albumDao().getAlbums()
+
+        if(albums.isNotEmpty()) return
+
+        songDB.albumDao().insert(
+            Album(
+                0,
+                "Butter","방탄소년단 (BTS)",R.drawable.img_album_exp
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                1,
+                "IU 5th Album 'LILAC'","아이유(IU)",R.drawable.img_album_exp2
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                2,
+                "이무진 1집","이무진",R.drawable.img_album_exp3
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                3,
+                "iScreaM Vol.10:Next Level Remixes","에스파 (AESPA)",R.drawable.img_album_exp4
+            )
+        )
+        songDB.albumDao().insert(
+            Album(
+                4,
+                "Weekend","태연(Taeyeom)",R.drawable.img_album_exp5
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                5,
+                "사랑인가봐","멜로망스",R.drawable.img_album_exp6
+            )
+        )
 
     }
 }
